@@ -21,7 +21,6 @@ const AddNote = () => {
     return (
 
         <div className='container my-3'>
-            <h1>This is iNotePad</h1>
             <h2>Add Your Notes</h2>
             <form className='my-3'>
                 <div className="mb-3">
@@ -32,7 +31,10 @@ const AddNote = () => {
                     <label htmlFor="description" className="form-label">Description</label>
                     <input type="text" onChange={onChange} className="form-control" id="description" name='description' />
                 </div>
-
+                <div className="mb-3">
+                    <label htmlFor="tag" className="form-label">Tag</label>
+                    <input type="text" onChange={onChange} className="form-control" id="tag" name='tag' />
+                </div>
                 <button type="submit" className="btn btn-primary" onClick={handleClick}>Add Notes</button>
             </form>
 
