@@ -4,11 +4,13 @@ import NoteContext from '../context/note/noteContext';
 import NoteItem from './NoteItem';
 
 
-const Notes = () => {
+const Notes = (props) => {
 
   const context = useContext(NoteContext);
 
   const { notes, getNotes, editNote } = context;
+
+  const {showAlert} = props
 
   useEffect(() => {
     getNotes()
@@ -20,14 +22,17 @@ const refClose = useRef(null)
 
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({id:currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
+    setNote({id:currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
+  
   }
 
   const handleClick = (e) => {
     console.log("Updating the note...", note)
     e.preventDefault();
     editNote(note.id,note.etitle,note.edescription,note.etag);
-    refClose.current.click()
+    refClose.current.click();
+    props.showAlert("Updated Successfully", "success")
+    
   }
 
   const onChange = (e) => {
@@ -76,7 +81,7 @@ const refClose = useRef(null)
       <div className="row my-3">
         <h2>Your Notes</h2>
         {notes.map((note) => {
-          return <NoteItem key={note._id} updateNote={updateNote} note={note} />
+          return <NoteItem key={note._id} updateNote={updateNote} note={note} showAlert={showAlert} />
           //return note.description
         })}
 

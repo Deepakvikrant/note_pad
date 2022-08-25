@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Signup = (props) => {
 
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" })
 
@@ -14,7 +14,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { name, email, password,cpassword } = credentials;
+        const { name, email, password, cpassword } = credentials;
 
         //const response = await fetch(`${host}/api/auth/createuser`, {
         const response = await fetch('http://localhost:5000/api/auth/createuser', {
@@ -33,9 +33,10 @@ const Signup = () => {
             //save the AuthToken reDirect
             localStorage.setItem('token', json.authtoken);
             navigate('/');
+            props.showAlert("Account created successfuly", "success");
         }
         else {
-            alert("Invalid Credentials");
+            props.showAlert("Invalid Credentials", "danger");
         }
     };
 
